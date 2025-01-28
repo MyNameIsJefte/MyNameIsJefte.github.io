@@ -8,6 +8,7 @@
 :root {
     --day-gradient: linear-gradient(135deg, #f5f5f5, #e0e0e0);
     --night-gradient: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+    
 }
 
 body {
@@ -37,33 +38,6 @@ body {
     height: 100%;
     z-index: -1;
 }
-
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    z-index: 2000;
-    transition: transform 0.3s ease-out;
-}
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-}
-
-.nav-menu a {
-    margin-left: 30px;
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.nav-menu a:hover {
-    color: #666;
-}
-
 #hero {
     height: 100vh;
     display: flex;
@@ -72,49 +46,62 @@ header {
     align-items: center;
     text-align: center;
     padding: 0 20px;
+    flex: 1; /* Push footer to the bottom */
 }
-
 #hero h1 {
     font-size: 3em;
     margin-bottom: 20px;
 }
+.name {
+    font-size: calc(10vw + 20px); /* Huge responsive text */
+    font-weight: bold;
+    color: rgba(255,255,255,0.8); /* Semi-transparent white */
+  }
 
-.cta-button {
-    margin-top: 30px;
+  
+.scroll-button {
+    margin-top: 20px;
     padding: 15px 30px;
-    font-size: 18px;
-    background: #333;
-    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #121212; /* Dark background for contrast */
+    background-color: #1f1f1f50; /* Teal accent color */
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: transform 0.3s ease, background 0.3s ease;
-}
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  }
+.scroll-button:hover {
+    transform: scale(1.1); /* Slight zoom effect */
+    background-color: #22222228; /* Darker teal on hover */
+  }
 
-.cta-button:hover {
-    background: #444;
-    transform: translateY(-2px);
-}
 
 .portfolio-container {
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: auto;
     padding: 50px 20px;
 }
 
 #portfolio {
     position: relative;
 }
+.portfolio-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    margin-bottom: 50vh;
+}
 
 .project {
     position: relative;
-    margin-bottom: 50px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    transform: translateY(100px);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    justify-content: flex-start;
+    transform: translateY(50px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
     will-change: transform, opacity;
     transform-style: preserve-3d;
 }
@@ -123,27 +110,73 @@ header {
     width: 90vw;
     height: 80vh;
     margin: 0 auto;
-    transition: all 0.5s ease-out;
+    transition: all 0.3s ease-out;
     transform-style: preserve-3d;
 }
 .project img {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
-
-.portfolio-wrapper {
-    height: calc(100vh * var(--total-projects));
-    position: relative;
-    margin-bottom: 50vh; /* Add space for contact section */
+.project-info {
+    position: absolute;
 }
 
-#contact {
+
+
+/* Parallax Footer */
+.parallax-footer {
     position: relative;
-    z-index: 1;
-    margin-top: 0vh; /* Pull contact section up */
-    background: rgba(255, 255, 255, 0.95);
-    padding: 2rem;
-}
+    height: 100vh; /* Full viewport height */
+    background-image: url('background.jpg'); /* Replace with your image */
+    background-attachment: fixed; /* Parallax effect */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .parallax-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .about-text {
+    font-size: calc(10vw + 20px); /* Huge responsive text */
+    font-weight: bold;
+    color: rgba(255,255,255,0.8); /* Semi-transparent white */
+  }
+  
+  .social-icons {
+    list-style-type: none;
+  }
+  
+  .social-icons li {
+    display: inline-block;
+  }
+  
+  .social-icons a {
+    text-decoration: none;
+    color: white;
+    font-size: calc(1.5rem + .5vw); /* Responsive icon size */
+    margin: 0px 10px; /* Space between icons */
+  }
+  
+  .social-icons a:hover {
+    opacity: 0.7; /* Hover effect */
+  }
+  
+  /* Responsive Design for Mobile Devices */
+  @media (max-width:768px) {
+      .about-text {
+          font-size: calc(8vw + 10px);
+      }
+  
+      .social-icons a {
+          font-size: calc(1rem + .5vw);
+      }
+  }

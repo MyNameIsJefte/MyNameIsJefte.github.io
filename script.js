@@ -17,6 +17,41 @@ setThemeBasedOnTime();
 // Update theme every minute
 setInterval(setThemeBasedOnTime, 60000);
 
+// Update dynamically on resize
+let viewportHeight = window.innerHeight;
+
+window.addEventListener('resize', () => {
+    viewportHeight = window.innerHeight; 
+});
+
+
+function throttle(func, limit) {
+    let lastFunc;
+    let lastRan;
+    return function(...args) {
+        const context = this;
+        if (!lastRan) {
+            func.apply(context, args);
+            lastRan = Date.now();
+        } else {
+            clearTimeout(lastFunc);
+            lastFunc = setTimeout(function() {
+                if ((Date.now() - lastRan) >= limit) {
+                    func.apply(context, args);
+                    lastRan = Date.now();
+                }
+            }, limit - (Date.now() - lastRan));
+        }
+    };
+}
+
+// Apply throttling to the scroll event
+const optimizedScrollHandler = throttle(() => {
+    // Your scroll logic here
+}, 100); // Executes every 100ms
+window.addEventListener('scroll', optimizedScrollHandler);
+
+
 // Smooth scroll function
 function scrollToPortfolio() {
     const portfolioSection = document.getElementById('portfolio');
@@ -24,35 +59,31 @@ function scrollToPortfolio() {
 }
 
 
-
 document.addEventListener('DOMContentLoaded', () => {
     const projects = document.querySelectorAll('.project');
-    const header = document.getElementById('header');
-    let lastScrollY = window.scrollY;
     const totalProjects = projects.length;
     const viewportHeight = window.innerHeight;
-    
+    const scrollButton = document.getElementById('scrollButton');
+    console.log("Parallax footer loaded!");
+
+    // scroll button to the footer
+    scrollButton.addEventListener('click', () => {
+        footer.scrollIntoView({ behavior: 'smooth' });
+    });
     // Initial setup
     projects.forEach((project, index) => {
-        project.style.zIndex = totalProjects - index;
         const content = project.querySelector('.project-content');
-        if (content) {
-            content.style.transform = `translate3d(0, 0, ${-2000 * index}px)`;
-            content.style.opacity = index === 0 ? 1 : 0.3;
+        if (!content) {
+            console.warn(`No .project-content found for project at index ${index}`);
+            return;
         }
+        content.style.transform = `translate3d(0, 0, ${-2000 * index}px)`;
+        content.style.opacity = index === 0 ? 1 : 0.3;
     });
+    
 
     window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const currentScrollY = window.scrollY;
         
-        if (currentScrollY > lastScrollY) {
-            header.style.transform = 'translateY(-100%)';
-        } else {
-            header.style.transform = 'translateY(0)';
-        }
-        
-        lastScrollY = currentScrollY;
         projects.forEach((project, index) => {
             const content = project.querySelector('.project-content');
             if (!content) return;
@@ -64,18 +95,47 @@ document.addEventListener('DOMContentLoaded', () => {
             const maxDistance = viewportHeight / 2;
             
             // Calculate visibility based on distance from center
-            const visibility = 1 - (distanceFromCenter / maxDistance);
+            const visibility = Math.max(0, Math.min(1, 1 - (distanceFromCenter / maxDistance)));
             const opacity = Math.max(0.3, Math.min(1, visibility));
             
             // Calculate z-position based on distance from center
             const zPosition = -2000 * (1 - visibility);
-            const scale = 0.8 + (visibility * 0.2); // Scale between 0.8 and 1
+            const scale = Math.max(0.8, Math.min(1, 0.8 + (visibility * 0.2)));
 
             // Apply transforms
             content.style.transform = `translate3d(0, 0, ${zPosition}px) scale(${scale})`;
             content.style.opacity = opacity;
         });
     });
+});
+
+let isTicking = false;
+
+function updateStyles() {
+    projects.forEach((project, index) => {
+        const content = cachedContents[index];
+        if (!content) return;
+
+        const rect = project.getBoundingClientRect();
+        const projectCenter = rect.top + (rect.height / 2);
+        const distanceFromCenter = Math.abs(projectCenter - (viewportHeight / 2));
+        const maxDistance = viewportHeight / 2;
+
+        const visibility = Math.max(0, Math.min(1, 1 - (distanceFromCenter / maxDistance)));
+        const zPosition = -2000 * (1 - visibility);
+        const scale = 0.8 + (visibility * 0.2);
+
+        content.style.transform = `translate3d(0, 0, ${zPosition}px) scale(${scale})`;
+        content.style.opacity = visibility;
+    });
+    isTicking = false;
+}
+
+window.addEventListener('scroll', () => {
+    if (!isTicking) {
+        requestAnimationFrame(updateStyles);
+        isTicking = true;
+    }
 });
 
 

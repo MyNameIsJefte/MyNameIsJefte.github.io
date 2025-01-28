@@ -29,7 +29,7 @@ body {
 
 /* For image background option */
 .image-background {
-    background: url('your-image-url.jpg') no-repeat center center fixed;
+    background: url('background.jpg') no-repeat center center fixed;
     background-size: cover;
     position: fixed;
     top: 0;
@@ -38,45 +38,36 @@ body {
     height: 100%;
     z-index: -1;
 }
-#hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
+/* Parallax header */
+.parallax-head {
+    position: relative;
+    height: 100vh; /* Full viewport height */
+    background-image: url('background.jpg'); /* Replace with your image */
+    background-attachment: fixed; /* Parallax effect */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .parallax-headcontent {
+    position: absolute;
+    top:   50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    padding: 0 20px;
-    flex: 1; /* Push footer to the bottom */
-}
-#hero h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-}
-.name {
+  }
+  
+  .name-text {
     font-size: calc(10vw + 20px); /* Huge responsive text */
     font-weight: bold;
     color: rgba(255,255,255,0.8); /* Semi-transparent white */
   }
 
+
+
+
   
-.scroll-button {
-    margin-top: 20px;
-    padding: 15px 30px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #121212; /* Dark background for contrast */
-    background-color: #1f1f1f50; /* Teal accent color */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
-  }
-.scroll-button:hover {
-    transform: scale(1.1); /* Slight zoom effect */
-    background-color: #22222228; /* Darker teal on hover */
-  }
-
-
 .portfolio-container {
     width: 100%;
     max-width: 1200px;
@@ -97,6 +88,7 @@ body {
 
 .project {
     position: relative;
+    flex-direction: column;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -108,10 +100,21 @@ body {
 .project-content {
     position: relative;
     width: 90vw;
-    height: 80vh;
+    height: 100vh;
     margin: 0 auto;
-    transition: all 0.3s ease-out;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease-out;
     transform-style: preserve-3d;
+}
+
+.project-info {
+    max-width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    position: sticky; /* Stick to viewport during scroll */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 .project img {
     width: 100%;
@@ -120,10 +123,10 @@ body {
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
-.project-info {
-    position: absolute;
-}
-
+/* Visibility Effects */
+.project img.hidden {
+    opacity: 0; /* Fade out when not visible */
+  }
 
 
 /* Parallax Footer */
@@ -172,7 +175,11 @@ body {
   
   /* Responsive Design for Mobile Devices */
   @media (max-width:768px) {
-      .about-text {
+    .name-text {
+        font-size: calc(8vw + 10px);
+    }
+
+    .about-text {
           font-size: calc(8vw + 10px);
       }
   

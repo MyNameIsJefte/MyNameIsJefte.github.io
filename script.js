@@ -19,12 +19,11 @@ setInterval(setThemeBasedOnTime, 60000);
 
 // Update dynamically on resize
 let viewportHeight = window.innerHeight;
-
 window.addEventListener('resize', () => {
     viewportHeight = window.innerHeight; 
 });
 
-
+// throttle the process
 function throttle(func, limit) {
     let lastFunc;
     let lastRan;
@@ -45,12 +44,6 @@ function throttle(func, limit) {
     };
 }
 
-// Apply throttling to the scroll event
-const optimizedScrollHandler = throttle(() => {
-    // Your scroll logic here
-}, 100); // Executes every 100ms
-window.addEventListener('scroll', optimizedScrollHandler);
-
 
 // Smooth scroll function
 function scrollToPortfolio() {
@@ -59,19 +52,25 @@ function scrollToPortfolio() {
 }
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    const projects = document.querySelectorAll('.project');
-    const totalProjects = projects.length;
-    const viewportHeight = window.innerHeight;
-    const scrollButton = document.getElementById('scrollButton');
-    console.log("Parallax footer loaded!");
 
-    // scroll button to the footer
-    scrollButton.addEventListener('click', () => {
-        footer.scrollIntoView({ behavior: 'smooth' });
-    });
+//content scrolls and 3d effect
+document.addEventListener('DOMContentLoaded', () => {
+        const projects = document.querySelectorAll('.project');
+        const totalProjects = projects.length;
+        const viewportHeight = window.innerHeight;
+        console.log("Parallax head loaded!");
+        console.log("Parallax footer loaded!");
+        
+
+    // Apply throttling to the scroll event
+        const optimizedScrollHandler = throttle(() => {
+    // Your scroll logic here
+    }, 100); // Executes every 100ms
+    window.addEventListener('scroll', optimizedScrollHandler);
+
+    
     // Initial setup
-    projects.forEach((project, index) => {
+        projects.forEach((project, index) => {
         const content = project.querySelector('.project-content');
         if (!content) {
             console.warn(`No .project-content found for project at index ${index}`);

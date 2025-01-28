@@ -45,11 +45,7 @@ function throttle(func, limit) {
 }
 
 
-// Smooth scroll function
-function scrollToPortfolio() {
-    const portfolioSection = document.getElementById('portfolio');
-    portfolioSection.scrollIntoView({ behavior: 'smooth' });
-}
+
 
 
 
@@ -73,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         projects.forEach((project, index) => {
         const content = project.querySelector('.project-content');
         if (!content) {
-            console.warn(`No .project-content found for project at index ${index}`);
+            console.warn(`No .project-content found ${index}`);
             return;
         }
         content.style.transform = `translate3d(0, 0, ${-2000 * index}px)`;
@@ -137,52 +133,15 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
 
-// Generate random positions and scales for the boxes
-function generateTileAnimationData(numBoxes, viewportWidth, viewportH) {
-    const data = [];
-    for (let i = 0; i < numBoxes; i++) {
-        const x = Math.random() * viewportWidth; // Random x position
-        const y = Math.random() * viewportH; // Random y position
-        const scale = Math.random() * (1.5 - 0.5) + 0.5; // Random scale between 0.5x and 1.5x
-        data.push({ x, y, scale });
-    }
-    return data;
-}
 
-// Initialize animation data
-const numBoxes = document.querySelectorAll('.box').length;
-const viewportWidth = window.innerWidth;
-const viewportH = window.innerHeight;
 
-const animationData = generateTileAnimationData(numBoxes, viewportWidth, viewportH);
 
-// Apply initial random positions and scales to the boxes
-document.querySelectorAll('.box').forEach((box, index) => {
-    const { x, y, scale } = animationData[index];
-    gsap.set(box, {
-        x,
-        y,
-        scale,
-    });
-});
 
-// Animate the boxes to stack and fill the viewport when scrolling
-gsap.to('.box', {
-    scrollTrigger: {
-        trigger: '.container',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: true,
-    },
-    x: (i) => (i % Math.ceil(viewportWidth / 100)) * 100, // Stack horizontally in rows
-    y: (i) => Math.floor(i / Math.ceil(viewportWidth / 100)) * 100, // Stack vertically in columns
-    scale: 1, // Reset scale to normal
-    opacity: 1, // Fade in to full visibility
-    duration: 2,
-    ease: 'power2.out',
-});
+
+
+
+
+
 
 

@@ -112,57 +112,34 @@ body {
     
 
   /* Portfolio */
-.portfolio-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: auto;
-    padding: 50px 20px;
-}
 
-#portfolio {
-    position: relative;
-}
-.portfolio-wrapper {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    align-items: center;
-    margin-bottom: 50vh;
+.portfolio-container {
+    scroll-snap-type: y mandatory; /* Enables scroll snapping */
+    overflow-y: scroll; /* Vertical scrolling */
+    height: 100vh; /* Full viewport height */
+    
 }
 
 .project {
     position: relative;
-    flex-direction: column;
+    scroll-snap-align: center; /* Aligns each project to the start of the viewport */
+    height: 100vh; /* Each project takes up the full viewport height */
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     transform: translateY(50px);
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     will-change: transform, opacity;
     transform-style: preserve-3d;
 }
 .project-content {
-    position: relative;
-    width: 90vw;
-    height: 100vh;
-    margin: 0 auto;
-    justify-content: center;
+    
     align-items: center;
     transition: all 0.5s ease-out;
     transform-style: preserve-3d;
 }
 
-.project-info {
-    position: relative;
-    max-width: 100%;
-    height: auto; /* Maintain aspect ratio */
-    position: sticky; /* Stick to viewport during scroll */
-    top: 100%; /* Center vertically */
-    justify-content: center;
-    align-items: center;
-    transform: translateY(-50%);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-}
+
 .project img {
     width: 100%;
     height: auto;
@@ -175,24 +152,45 @@ body {
     opacity: 0; /* Fade out when not visible */
   }
 
-/* Trigger scroll animation */
-.container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
+  /* scroll image */
+  
+  .scroll-image {
+    align-items: center;
+    transition: all 0.5s ease-out;
+    transform-style: preserve-3d;
   }
   
-  .box {
-    position: absolute;
-    width: 100px; /* Default size */
-    height: 100px; /* Default size */
-    background-color: teal;
-    opacity: 0; /* Start hidden */
+  .responsive-image {
+    width: auto;
+    height: 100vh;
+    object-fit: cover;
   }
+  
+  /* Mobile Styles */
+  @media screen and (max-width: 768px) {
+    .scroll-image {
+      aspect-ratio: 16/9;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+    
+    .responsive-image {
+      object-position: center;
+    }
+  }
+  
+  /* Desktop Styles */
+  @media screen and (min-width: 769px) {
+    .scroll-image {
+      aspect-ratio: 9/16;
+    }
+  }
+  
 
 
 /* Parallax Footer */
 .parallax-footer {
+    margin-top: 50vh;
     position: relative;
     height: 100vh; /* Full viewport height */
     background-image: url('background.jpg'); /* Replace with your image */

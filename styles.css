@@ -112,7 +112,7 @@ body {
     max-width: 100%;
     height: auto; /* Maintain aspect ratio */
     position: sticky; /* Stick to viewport during scroll */
-    top: 50%; /* Center vertically */
+    top: 100%; /* Center vertically */
     transform: translateY(-50%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }

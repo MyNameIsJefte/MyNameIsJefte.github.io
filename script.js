@@ -137,39 +137,52 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// scroll trigger
+// Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
-gsap.from(".box", {
-    scrollTrigger: {
-        trigger: ".proyecto",
-        start: "top 80%", // Trigger when the proyecto is near the viewport
-        end: "top 20%", // End animation when the proyecto reaches 20% of the viewport
-        scrub: true, // Smooth animation linked to scroll
-        markers: false // Set to true for debugging
-    },
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    stagger: 0.3, // Stagger animations for each box
-    ease: "power2.out"
-});
-gsap.to(".background", {
-    scrollTrigger: {
-        trigger: ".proyecto",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-    },
-    yPercent: -50 // Moves background slower than foreground
-});
-gsap.timeline({
-    scrollTrigger: {
-        trigger: ".proyecto",
-        start: "top top",
-        end: "+=300%",
-        scrub: true,
-        pin: true // Keeps the proyecto in place during scroll
+
+// Generate random positions and scales for the boxes
+function generateTileAnimationData(numBoxes, viewportWidth, viewportH) {
+    const data = [];
+    for (let i = 0; i < numBoxes; i++) {
+        const x = Math.random() * viewportWidth; // Random x position
+        const y = Math.random() * viewportH; // Random y position
+        const scale = Math.random() * (1.5 - 0.5) + 0.5; // Random scale between 0.5x and 1.5x
+        data.push({ x, y, scale });
     }
-})
-.from(".box", { opacity: 0, y: 100 });
+    return data;
+}
+
+// Initialize animation data
+const numBoxes = document.querySelectorAll('.box').length;
+const viewportWidth = window.innerWidth;
+const viewportH = window.innerHeight;
+
+const animationData = generateTileAnimationData(numBoxes, viewportWidth, viewportH);
+
+// Apply initial random positions and scales to the boxes
+document.querySelectorAll('.box').forEach((box, index) => {
+    const { x, y, scale } = animationData[index];
+    gsap.set(box, {
+        x,
+        y,
+        scale,
+    });
+});
+
+// Animate the boxes to stack and fill the viewport when scrolling
+gsap.to('.box', {
+    scrollTrigger: {
+        trigger: '.container',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: true,
+    },
+    x: (i) => (i % Math.ceil(viewportWidth / 100)) * 100, // Stack horizontally in rows
+    y: (i) => Math.floor(i / Math.ceil(viewportWidth / 100)) * 100, // Stack vertically in columns
+    scale: 1, // Reset scale to normal
+    opacity: 1, // Fade in to full visibility
+    duration: 2,
+    ease: 'power2.out',
+});
+
 

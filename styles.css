@@ -47,10 +47,10 @@ body {
     position: relative;
     background: radial-gradient(
         circle at 50% 55%, 
-        rgba(226, 234, 250, 0.9),
-        rgba(226, 234, 250, 0.9) 40%, 
-        rgba(226, 234, 250, 0.8) 60%, 
-        rgba(15, 108, 238, 0.4)
+        rgba(164, 166, 170, 0.708),
+        rgba(134, 135, 140, 0.615) 40%, 
+        rgba(83, 86, 90, 0.625) 60%, 
+        rgba(49, 50, 51, 0.4)
     );
     animation: floatBubble 2s ease-in-out infinite;
     cursor: pointer;
@@ -64,8 +64,8 @@ body {
     height: 80%;
     background: radial-gradient(
         circle at 130% 130%, 
-        rgba(255, 255, 255, 0) 0,
-        rgba(255, 255, 255, 0.8) 50%, 
+        rgba(125, 114, 114, 0.446) 0,
+        rgba(185, 171, 171, 0.8) 50%, 
         rgba(255, 255, 255, 0) 100%
     );
     left: 10%;
@@ -176,27 +176,19 @@ body {
   }
 
 /* Trigger scroll animation */
-.proyecto {
-    display: flex;
-    margin-bottom: auto;
-    align-items: center;
-    height: 100vh;
+.container {
     position: relative;
-    margin: auto; position: relative;
-    justify-content: flex-start;
-    transform: translateY(50px);
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-    will-change: transform, opacity;
-    transform-style: preserve-3d;
-}
-.box {
-    width: 100px;
-    height: 100px;
-    margin: 5px;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .box {
+    position: absolute;
+    width: 100px; /* Default size */
+    height: 100px; /* Default size */
     background-color: teal;
-    opacity: 1; /* Start hidden */
-    transform: translateY(50px); /* Start slightly below */
-}
+    opacity: 0; /* Start hidden */
+  }
 
 
 /* Parallax Footer */
@@ -244,7 +236,7 @@ body {
   }
   
   /* Responsive Design for Mobile Devices */
-  @media (max-width:768px) {
+  @media (max-width:1080px) {
     .name-text {
         font-size: calc(8vw + 10px);
     }

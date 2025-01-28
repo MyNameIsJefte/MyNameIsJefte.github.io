@@ -2,7 +2,7 @@ function setThemeBasedOnTime() {
     const hour = new Date().getHours();
     const body = document.body;
     
-    if (hour >= 6 && hour < 18) {
+    if (hour >= 8 && hour < 20) {
         body.classList.remove('night-theme');
         body.classList.add('day-theme');
     } else {
@@ -137,4 +137,39 @@ window.addEventListener('scroll', () => {
     }
 });
 
+// scroll trigger
+gsap.registerPlugin(ScrollTrigger);
+gsap.from(".box", {
+    scrollTrigger: {
+        trigger: ".proyecto",
+        start: "top 80%", // Trigger when the proyecto is near the viewport
+        end: "top 20%", // End animation when the proyecto reaches 20% of the viewport
+        scrub: true, // Smooth animation linked to scroll
+        markers: false // Set to true for debugging
+    },
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    stagger: 0.3, // Stagger animations for each box
+    ease: "power2.out"
+});
+gsap.to(".background", {
+    scrollTrigger: {
+        trigger: ".proyecto",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+    },
+    yPercent: -50 // Moves background slower than foreground
+});
+gsap.timeline({
+    scrollTrigger: {
+        trigger: ".proyecto",
+        start: "top top",
+        end: "+=300%",
+        scrub: true,
+        pin: true // Keeps the proyecto in place during scroll
+    }
+})
+.from(".box", { opacity: 0, y: 100 });
 

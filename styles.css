@@ -1,13 +1,13 @@
 /* Entrance Animation */
 .entrance-animation {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  --animation-ease: cubic-bezier(0.23, 1, 0.32, 1);
-  perspective: 1000px;
   background: #b60f28;
   z-index: 1000;
   pointer-events: none;
@@ -29,13 +29,22 @@
 }
 
 .letter {
-  font-size: 8vw;
-  font-weight: bold;
+  font-size: 10vw;
+  font-family: 'Abril Fatface', serif; /* Similar elegant serif */
   color: white;
   opacity: 0;
   position: relative;
   text-transform: uppercase;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.15);
   animation: slideIn 1.5s forwards;
+}
+.letter-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgba(0,0,0,0.15);
+  z-index: -1;
+  animation: shadowMove 2s ease-out forwards;
 }
 @keyframes slideIn {
   0% {
@@ -47,6 +56,10 @@
       transform: translateX(0);
   }
 }
+@keyframes shadowMove {
+  from { transform: translate(0,0); }
+  to { transform: translate(0.2em, 0.2em); }
+}
 @keyframes fadeOut {
   0% {
   opacity: 1;
@@ -57,6 +70,7 @@
   visibility: hidden;
 }
 }
+
 
 * {
     margin: 0;
@@ -89,7 +103,7 @@
     position: fixed;
     top: 20px;
     right: 20px;
-    z-index: 1000;
+    z-index: 950;
   }
 
 .bubble-link {
@@ -167,7 +181,7 @@
   
   .name-text {
     font-size: calc(10vw + 20px); /* Huge responsive text */
-    font-weight: bold;
+    font-family: 'Abril Fatface', serif; /* Similar elegant serif */
     color: rgba(255,255,255,0.8); /* Semi-transparent white */
   }
 

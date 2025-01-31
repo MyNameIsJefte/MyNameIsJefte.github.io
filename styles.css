@@ -1,3 +1,63 @@
+/* Entrance Animation */
+.entrance-animation {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  --animation-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  perspective: 1000px;
+  background: #b60f28;
+  z-index: 1000;
+  pointer-events: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  animation: fadeOut 1s ease-in-out forwards;
+  animation-delay: 4s;              
+}
+
+.entrance-animation.hidden {
+  opacity: 0;
+}
+.text-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.letter {
+  font-size: 8vw;
+  font-weight: bold;
+  color: white;
+  opacity: 0;
+  position: relative;
+  text-transform: uppercase;
+  animation: slideIn 1.5s forwards;
+}
+@keyframes slideIn {
+  0% {
+      opacity: 0;
+      transform: translateX(var(--start-position));
+  }
+  100% {
+      opacity: 1;
+      transform: translateX(0);
+  }
+}
+@keyframes fadeOut {
+  0% {
+  opacity: 1;
+  visibility: visible;
+  }
+  100% {
+  opacity: 0;
+  visibility: hidden;
+}
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -11,10 +71,6 @@
     
 }
 
-body {
-    transition: all 0.5s ease;
-}
-
 /* Day theme (6 AM to 6 PM) */
 .day-theme {
     background: var(--day-gradient);
@@ -26,6 +82,7 @@ body {
     background: var(--night-gradient);
     color: #e0e0e0;
 }
+
 
 /* Bubble */
 .floating-bubble {
@@ -83,7 +140,11 @@ body {
 .bubble:hover {
     transform: scale(1.1);
 }
-
+.body{
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
 /* Parallax header */
 .parallax-head {
     position: relative;
@@ -93,6 +154,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    z-index: 900;
   }
   
   .parallax-headcontent {
@@ -127,6 +189,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: auto;
     transform: translateY(50px);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     will-change: transform, opacity;
@@ -151,42 +214,6 @@ body {
 .project img.hidden {
     opacity: 0; /* Fade out when not visible */
   }
-
-  /* scroll image */
-  
-  .scroll-image {
-    align-items: center;
-    transition: all 0.5s ease-out;
-    transform-style: preserve-3d;
-  }
-  
-  .responsive-image {
-    width: auto;
-    height: 100vh;
-    object-fit: cover;
-  }
-  
-  /* Mobile Styles */
-  @media screen and (max-width: 768px) {
-    .scroll-image {
-      aspect-ratio: 16/9;
-      margin: 0 auto;
-      max-width: 100%;
-    }
-    
-    .responsive-image {
-      object-position: center;
-    }
-  }
-  
-  /* Desktop Styles */
-  @media screen and (min-width: 769px) {
-    .scroll-image {
-      aspect-ratio: 9/16;
-    }
-  }
-  
-
 
 /* Parallax Footer */
 .parallax-footer {

@@ -1,3 +1,52 @@
+// Text animation initialization
+function initTextAnimation() {
+    const container = document.getElementById('textContainer');
+    const word = "Welcome";
+    
+    word.split('').forEach((letter, index) => {
+        const span = document.createElement('span');
+        span.textContent = letter;
+        span.className = 'letter';
+        span.style.animationDelay = `${index * 0.15}s`;
+        
+        // Add decorative elements
+        if(index % 2 === 0) {
+          span.innerHTML = `
+            ${letter}
+            <span class="letter-shadow" 
+                  style="animation-delay: ${index * 0.15 + 0.1}s"></span>
+          `;
+        }
+        
+        container.appendChild(span);
+      });
+}
+// Add after initTextAnimation()
+function initScrollFade() {
+    const entranceAnim = document.getElementById('entranceAnimation');
+    let lastScroll = 0;
+    let animationCompleted = false;
+  
+    // Wait for initial animation to complete
+    setTimeout(() => animationCompleted = true, 1500);
+  
+    window.addEventListener('scroll', () => {
+      if (!animationCompleted) return;
+      
+      const scrollY = window.scrollY;
+      const fadeStart = 100; // Start fading after 100px scroll
+      const fadeDistance = 300; // Full fade after 300px
+      
+      const opacity = 1 - Math.min((scrollY - fadeStart) / fadeDistance, 1);
+      entranceAnim.style.opacity = opacity;
+  
+      // Hide completely when fully faded
+      if (opacity <= 0) {
+        entranceAnim.classList.add('hidden');
+      }
+    });
+  }
+
 function setThemeBasedOnTime() {
     const hour = new Date().getHours();
     const body = document.body;
@@ -51,8 +100,9 @@ function throttle(func, limit) {
 
 //content scrolls and 3d effect
 document.addEventListener('DOMContentLoaded', () => {
+        initTextAnimation();
+        initScrollFade();
         const projects = document.querySelectorAll('.project');
-        const totalProjects = projects.length;
         const viewportHeight = window.innerHeight;
         console.log("Parallax head loaded!");
         console.log("Parallax footer loaded!");
@@ -65,23 +115,11 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', optimizedScrollHandler);
 
     
-    // Initial setup
-        projects.forEach((project, index) => {
-        const content = project.querySelector('.project-content');
-        if (!content) {
-            console.warn(`No .project-content found ${index}`);
-            return;
-        }
-        content.style.transform = `translate3d(0, 0, ${-2000 * index}px)`;
-        content.style.opacity = index === 0 ? 1 : 0.3;
-    });
-    
-
     window.addEventListener('scroll', () => {
         
-        projects.forEach((project, index) => {
+        projects.forEach((project) => {
             const content = project.querySelector('.project-content');
-            if (!content) return;
+            if (!content);
 
             // Calculate the center point of each project relative to viewport
             const rect = project.getBoundingClientRect();
@@ -132,10 +170,6 @@ window.addEventListener('scroll', () => {
         isTicking = true;
     }
 });
-
-
-
-
 
 
 

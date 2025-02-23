@@ -80,8 +80,8 @@ body::-webkit-scrollbar {
 .viewport-section {
     height: 100vh;
     scroll-snap-align: start;
-    position: relative;
-    overflow: hidden;
+    position: absolute;
+    overflow: visible;
 }
 
 .parallax-layer {
@@ -106,7 +106,6 @@ body::-webkit-scrollbar {
 .countdown::after {
     content: '';
     inset: 0;
-    text-align: center;
     z-index: -1;
 }
   
@@ -114,10 +113,12 @@ body::-webkit-scrollbar {
 /* Mobile layout: 1 column with 4 rows */
 .countdown-grid {
     display: grid;
+    justify-content: center;
+    text-align: center;
     gap: 5px;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, 1fr, minmax(100px, auto));
-    padding: 0;
+    padding: 5px;
     transform: scale(0.70);
     
 }
@@ -126,7 +127,7 @@ body::-webkit-scrollbar {
     .countdown-grid {
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: auto;
-        transform: scale(1.1);
+        transform: scale(1);
     }
 }
 /* Optionally, further adjust for larger screens */
@@ -134,17 +135,18 @@ body::-webkit-scrollbar {
     .countdown-grid {
         grid-template-columns: repeat(4, 1fr);
         gap: 10px;
-        transform: scale(1.2);
+        transform: scale(1);
     }
 }
   
   .countdown-item {
     position: relative;
     min-width: 200px;
-    height: auto; /* 160px / 1.618 */
-    padding: 15px; /* 24px / 1.618 ≈ 14.8px radius */
+    height: auto;
+    padding: 15px;
     border-radius: 32px;
     text-align: center;
+    justify-content: center;
     background: var(--bg-color);
     backdrop-filter: blur(20px);
     transform-style: preserve-3d;

@@ -116,13 +116,17 @@ body::-webkit-scrollbar {
     display: grid;
     gap: 5px;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr, minmax(100px, auto));
+    padding: 0;
+    transform: scale(0.70);
+    
 }
 /* Desktop layout (≥768px): 4 columns if you wish */
 @media (min-width: 768px) {
     .countdown-grid {
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: auto;
+        transform: scale(1.1);
     }
 }
 /* Optionally, further adjust for larger screens */
@@ -130,6 +134,7 @@ body::-webkit-scrollbar {
     .countdown-grid {
         grid-template-columns: repeat(4, 1fr);
         gap: 10px;
+        transform: scale(1.2);
     }
 }
   

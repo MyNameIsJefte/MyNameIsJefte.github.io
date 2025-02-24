@@ -81,7 +81,9 @@ body::-webkit-scrollbar {
     scroll-snap-align: start;
     position: relative;
     overflow: hidden;
-    
+    transform: translateZ(calc(var(--depth) * -1px)) scale(1);
+    transition: transform 1s ease-in-out var(--transition-time);
+    perspective: 1px;
 }
 
 .parallax-layer {
@@ -194,7 +196,9 @@ body::-webkit-scrollbar {
     top: 15%;
     left: 8%;
     transform: scale(0.75);
+    overflow: hidden;
   }
+
   @media (min-width: 430px) {
     #text-animations {
       top: 16%;
@@ -333,6 +337,23 @@ body::-webkit-scrollbar {
     opacity: 0;
   }
 
+/*Spotify player*/
+.spotify-player {
+    position: fixed; /* or absolute if the parent is relative */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 352px;
+    min-width: 358px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 25px 50px var(--secondary);
+    border-radius: 14px;
+    overflow: hidden;
+    /* You can add width or max-width properties if needed */
+}
+
 /*Navigation Dots*/
 .dot-nav {
     position: fixed;
@@ -363,6 +384,6 @@ h1, h2, h3 {
     position: relative;
     z-index: 1;
 }
-  
+
 
 

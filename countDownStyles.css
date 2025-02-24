@@ -196,7 +196,7 @@ body::-webkit-scrollbar {
     top: 15%;
     left: 8%;
     transform: scale(0.75);
-    overflow: hidden;
+    overflow: visible;
   }
 
   @media (min-width: 430px) {

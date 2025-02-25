@@ -10,7 +10,7 @@
     --platinum: #E5E4E2;
     --transition: cubic-bezier(0.4, 0, 0.58, 1);
     --transition-time: 0.6s; /* Transition duration for smooth effects */
-    --transition-duration: 0.3s;
+    --transition-duration: 0.8s;
     --section-spacing: 10vh;
 }
 * {
@@ -158,7 +158,7 @@ body::-webkit-scrollbar {
                 box-shadow 0.6s var(--transition);
   }
   .countdown-item:hover {
-    transform: translateY(0) rotateX(5deg) rotateY(-1deg);
+    transform: translateY(0) rotateX(2deg) rotateY(0deg);
     box-shadow: 0 25px 50px var(--secondary);
     z-index: 1;
   }
@@ -230,6 +230,7 @@ body::-webkit-scrollbar {
     max-height: 80px;
     min-width: auto;
     max-width: 100%;
+    border-radius: 14px;
     /* Initially hidden until animations run */
     opacity: 0;
     
@@ -329,12 +330,23 @@ body::-webkit-scrollbar {
     width: 100%;
     height: auto;
     object-fit: cover;
-    transition: opacity var(--transition-time) ease-in-out;
+    animation: slideIn 0.8s forwards var(--transition-duration);
   }
   
   /* Fade effect class for image transitions */
-  #display-image.fade {
+  #display-image.slide {
     opacity: 0;
+    animation: slideIn 0.8s forwards var(--transition-duration);
+  }
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
 
 /*Spotify player*/
@@ -343,8 +355,8 @@ body::-webkit-scrollbar {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 352px;
-    min-width: 358px;
+    height: 350px;
+    min-width: 356px;
     display: flex;
     align-items: center;
     justify-content: center;

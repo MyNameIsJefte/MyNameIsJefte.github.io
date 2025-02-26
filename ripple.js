@@ -168,8 +168,8 @@ function updatePhysics() {
 // Redraw all the strings using quadratic curves for smoothness.
 function drawStrings() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = '#404040';
-  ctx.lineWidth = 2;
+  ctx.strokeStyle = '#0a0a0a';
+  ctx.lineWidth = 0.3;
   for (let s = 0; s < strings.length; s++) {
     let points = strings[s];
     ctx.beginPath();
@@ -194,5 +194,5 @@ function animate() {
   drawStrings();
 }
 
-// Initialize the simulation when the DOM is fully loaded.
+// Initialize the simulation when the DOM is fully loaded
 window.addEventListener('load', init);

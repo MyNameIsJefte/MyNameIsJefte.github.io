@@ -66,7 +66,7 @@ body::-webkit-scrollbar {
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
-    
+    scrollbar-width: none;
 }
   
 .title-name{
@@ -75,6 +75,8 @@ body::-webkit-scrollbar {
     top: 1%;
     padding: 20px;
     color: var(--primary);
+    z-index: 2;
+    pointer-events: none;
 }
 .viewport-section {
     height: 100vh;
@@ -187,168 +189,6 @@ body::-webkit-scrollbar {
     color: var(--secondary);
     
   }
-
-/*IRASEVOL*/
-/* Container for animated text elements */
-#text-animations {
-    position: absolute;
-    padding: 5px;
-    top: 15%;
-    left: 8%;
-    transform: scale(0.75);
-    overflow: visible;
-  }
-
-  @media (min-width: 430px) {
-    #text-animations {
-      top: 16%;
-      left: 4%;
-      transform: scale(0.85);
-    }
-  }
-  @media (min-width: 720px) {
-    #text-animations {
-      top: 24%;
-      left: 20%;
-      transform: scale(1);
-    }
-  }
-  @media (min-width: 1200px) {
-    #text-animations {
-      top: 20%;
-      left: 20%;
-      transform: scale(1);
-    }
-  }
-
-  /* Each animated item acting as a button */
-  .anim-item {
-    margin: 0 0;
-    padding: 8px;
-    cursor: pointer;
-    min-height: auto;
-    max-height: 80px;
-    min-width: auto;
-    max-width: 100%;
-    border-radius: 14px;
-    /* Initially hidden until animations run */
-    opacity: 0;
-    
-  }
-  .anim-item:hover {
-    transform: translateY(0) rotateX(5deg) rotateY(-1deg);
-    box-shadow: 0 25px 50px var(--secondary);
-    border-radius: 14px;
-  }
-  
-  /* Letter styling: header size with sliding animation */
-  .anim-item.start-animation .letter {
-    font-size: 3.2rem;
-    display: inline-block;
-    margin-right: 5px;
-    animation: slideIn 1s forwards var(--transition);
-    opacity: 0;
-  }
-  
-  /* Word styling: small size with fade-in effect and designated secondary color */
-  .anim-item.start-animation .word {
-    font-size: 1.4rem;
-    font-family: 'SF Pro', sans-serif;
-    color: var(--secondary);
-    animation: fadeIn 0.5s forwards var(--transition);
-    opacity: 0;
-  }
-  
-  /* Keyframes for letters sliding in from right */
-  @keyframes slideIn {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-  
-  /* Keyframes for words fading in */
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  
-  /* Sequential delays for each animated item */
-  /* Letter animation delays */
-  .anim-item:nth-child(1) .letter { animation-delay: 0s; }
-  .anim-item:nth-child(2) .letter { animation-delay: 1s; }
-  .anim-item:nth-child(3) .letter { animation-delay: 2s; }
-  .anim-item:nth-child(4) .letter { animation-delay: 3s; }
-  .anim-item:nth-child(5) .letter { animation-delay: 4s; }
-  .anim-item:nth-child(6) .letter { animation-delay: 5s; }
-  .anim-item:nth-child(7) .letter { animation-delay: 6s; }
-  .anim-item:nth-child(8) .letter { animation-delay: 7s; }
-  
-  /* Word fade-in delays follow letter animation completions */
-  .anim-item:nth-child(1) .word { animation-delay: 1s; }
-  .anim-item:nth-child(2) .word { animation-delay: 2s; }
-  .anim-item:nth-child(3) .word { animation-delay: 3s; }
-  .anim-item:nth-child(4) .word { animation-delay: 4s; }
-  .anim-item:nth-child(5) .word { animation-delay: 5s; }
-  .anim-item:nth-child(6) .word { animation-delay: 6s; }
-  .anim-item:nth-child(7) .word { animation-delay: 7s; }
-  .anim-item:nth-child(8) .word { animation-delay: 8s; }
-  
-  /* Once animations are triggered the anim-items become visible */
-  .anim-item {
-    animation: appear 0.1s forwards;
-  }
-  
-  @keyframes appear {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  
-  /* Fixed image container on the right side */
-  #image-viewport {
-    position: fixed;
-    display: flex;
-    right: 0;
-    width: 50%;
-    min-width: 215px;
-    height: 100vh;
-    max-width: auto;
-    overflow: hidden;
-  }
-  @media (min-width: 768px) {
-    #image-viewport {
-      transform: scale(1);
-    }
-  }
-  
-  /* Display image styling with smooth opacity transition */
-  #display-image {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    animation: slideIn 0.8s forwards var(--transition-duration);
-  }
-  
-  /* Fade effect class for image transitions */
-  #display-image.slide {
-    opacity: 0;
-    animation: slideIn 0.8s forwards var(--transition-duration);
-  }
-  @keyframes slideIn {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-
 /*Spotify player*/
 .spotify-player {
     position: fixed; /* or absolute if the parent is relative */
@@ -356,7 +196,7 @@ body::-webkit-scrollbar {
     left: 50%;
     transform: translate(-50%, -50%);
     height: 350px;
-    min-width: 356px;
+    min-width: 354px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -365,6 +205,7 @@ body::-webkit-scrollbar {
     overflow: hidden;
     /* You can add width or max-width properties if needed */
 }
+
 
 /*Navigation Dots*/
 .dot-nav {
@@ -392,10 +233,60 @@ body::-webkit-scrollbar {
 h1, h2, h3 {
     font-family: var(--font-stack);
     font-size: clamp(2rem, 6vw, 3rem);
-    color: var(--secondary);
+    color: var(--primary);
     position: relative;
     z-index: 1;
 }
 
 
-
+/*Strings animation*/
+.strings-section{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}canvas {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 1;
+  overflow: visible;
+  /* CSS background gradient matching your JS color stops */
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      #525252 0%,
+      #262626 20%,
+      #171717 50%,
+      #000000 100%
+    );
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+.text{
+  position: absolute;
+  min-width: 215px;
+  max-width: 50vw;
+  left: 10%;
+  height: fit-content;
+  font-size: 3rem;
+  font-weight: bold;
+  display: flex;
+  top: 50%;
+  transform: translateY(-50%);
+  justify-content: center; 
+  font-family: var(--font-stack);
+  overflow: hidden;
+  color: #d4d4d4;
+  z-index: 2;
+  pointer-events: none;
+}
+@media (min-width: 768px) {
+  .text {
+    font-size: 5vw;
+  }
+}
+/**/

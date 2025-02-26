@@ -161,63 +161,16 @@ function startAutoHoverSequence() {
     countdownItems[currentFocusIndex].classList.add('auto-hover');
     currentFocusIndex = (currentFocusIndex + 1) % countdownItems.length;
     
-  }, 2500); // 2-second interval between transitions
+  }, 2000); // 2-second interval between transitions
 }
 // Initialize systems
 document.addEventListener('DOMContentLoaded', () => {
     startAutoHoverSequence();
   });
 
-// IRASEVOL
-document.addEventListener('DOMContentLoaded', () => {
-    const targetSection = document.querySelector('#text-animations');
-  
-    if (targetSection) {
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          // When at least 50% of our target is in view:
-          if (entry.isIntersecting) {
-            // Start anim-item animations inside the section
-            targetSection.querySelectorAll('.anim-item').forEach(item => {
-              item.classList.add('start-animation');
-            });
-  
-            // Optionally, unobserve so that this only happens once
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 1 });
-    
-      observer.observe(targetSection);
-    }
-  });
-// Wait until the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Select all animated text items and the display image
-    const animItems = document.querySelectorAll('.anim-item');
-    const displayImage = document.getElementById('display-image');
-  
-    // Add click event for each animated item to update the image
-    animItems.forEach(item => {
-      item.addEventListener('click', function() {
-        // Optionally, remove an active state from all items for visual feedback
-        animItems.forEach(i => i.classList.remove('active'));
-        item.classList.add('active');
-  
-        // Retrieve the image URL stored in the data attribute
-        const newImageSrc = item.getAttribute('data-image');
-  
-        // Add a fade effect to smoothly transition the image
-        displayImage.classList.add('fade');
-  
-        // After a short delay, change the image source then remove the fade effect
-        setTimeout(() => {
-          displayImage.src = newImageSrc;
-          displayImage.classList.remove('fade');
-        }, 300); // Delay matches the CSS transition time
-      });
-    });
-});
+
+
+
 
 
 

@@ -53,7 +53,7 @@ body::-webkit-scrollbar {
 .intro-name, .intro-surname {
     font-size: 5rem;
     font-weight: 900;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.1em;
     color: var(--primary);
 }
 
